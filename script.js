@@ -1,9 +1,6 @@
 // Paima oro sąlygas iš API
-fetch('https://api.meteo.lt/v1/stations/vilniaus-ams/observations/latest', {
-  headers: {
-    'Access-Control-Allow-Origin':'*'
-  }
-})
+const url = 'https://corsproxy.io/?' + encodeURIComponent('https://api.meteo.lt/v1/places/vilnius/forecasts/long-term');
+fetch(url)
   .then(response => response.json())
 
   .then(data => {
@@ -15,6 +12,10 @@ fetch('https://api.meteo.lt/v1/stations/vilniaus-ams/observations/latest', {
 
     // Įterpia ikoną į HTML - kreipiasi į žemiau aprašytą funkciją getWeatherIcon()
     weatherIcon.innerHTML = getWeatherIcon(conditionCode);
+
+    console.log('Data:', data);
+    console.log('conditionCode:', conditionCode);
+    console.log('Icon:', weatherIcon);
 
     // Duomenų saugojimas į localStorage
     localStorage.setItem('weatherCondition', conditionCode);
@@ -33,25 +34,34 @@ function getWeatherIcon(conditionCode) {
   // Priskirti ikoną pagal oro sąlygą
   switch (conditionCode) {
     case 'clear':
-      iconClass = 'wi wi-day-sunny';
+      iconClass = 'bi bi-sun';
       break;
     case 'isolated-clouds':
-      iconClass = 'wi wi-day-cloudy';
+      iconClass = 'bi bi-cloud-sun';
       break;
     case 'overcast':
-      iconClass = 'wi wi-cloudy';
+      iconClass = 'bi bi-clouds';
       break;
     case 'sleet':
-      iconClass = 'wi wi-rain';
+      iconClass = 'bi bi-cloud-rain';
       break;
     case 'snowstorm':
-      iconClass = 'wi wi-snow';
+      iconClass = 'bi bi-snow';
       break;
     case 'fog':
-      iconClass = 'wi wi-fog';
+      iconClass = 'bi bi-cloud-haze';
+      break;
+    case 'partly-cloudy':
+      iconClass = 'bi bi-cloud-sun-fill';
+      break;
+    case 'light-rain':
+      iconClass = 'bi bi-cloud-drizzle';
+      break;
+    case 'moderate-rain':
+      iconClass = 'bi bi-cloud-rain-heavy';
       break;
     default:
-      iconClass = 'wi wi-na';
+      iconClass = 'bi bi-question-diamond';
       break;
   }
 
