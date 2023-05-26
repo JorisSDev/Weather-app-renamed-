@@ -1,0 +1,9 @@
+.card {
+    text-align: center;
+    padding: 20px;
+    background-color: lightgray;
+  }
+  
+  #weather-icon {
+    font-size: 48px;
+  }
