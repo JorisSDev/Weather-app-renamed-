@@ -1,5 +1,10 @@
 // Paima oro sąlygas iš API
-fetch('https://api.meteo.lt/v1/places/vilnius/forecasts/long-term', {mode: 'no-cors'} )
+fetch('https://api.meteo.lt/v1/stations/vilniaus-ams/observations/latest', {
+  mode: 'no-cors',
+  headers: {
+    'Access-Control-Allow-Origin':'*'
+  }
+})
   .then(response => response.json())
 
   .then(data => {
