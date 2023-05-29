@@ -1,8 +1,8 @@
-// Paima oro sąlygas iš API
 const url = 'https://corsproxy.io/?' + encodeURIComponent('https://api.meteo.lt/v1/places/vilnius/forecasts/long-term');
+
+// Paima oro sąlygas iš API
 fetch(url)
   .then(response => response.json())
-
   .then(data => {
     // Priskiria kintamuosius iš API - dabartinės oro sąlygos
     const conditionCode = data.forecastTimestamps[0].conditionCode;
@@ -10,12 +10,11 @@ fetch(url)
     // Gaunama vieta, kur bus atvaizduojama icona
     const weatherIcon = document.getElementById('weather-icon');
 
-    // Įterpia ikoną į HTML - kreipiasi į žemiau aprašytą funkciją getWeatherIcon()
+    // Įterpiama ikoną į HTML - kreipiasi į getWeatherIcon()
     weatherIcon.innerHTML = getWeatherIcon(conditionCode);
 
     console.log('Data:', data);
     console.log('conditionCode:', conditionCode);
-    console.log('Icon:', weatherIcon);
 
     // Duomenų saugojimas į localStorage
     localStorage.setItem('weatherCondition', conditionCode);
@@ -33,51 +32,99 @@ function getWeatherIcon(conditionCode) {
 
   // Priskirti ikoną pagal oro sąlygą
   switch (conditionCode) {
-    case 'cloudy':
-      iconClass = 'bi bi-clouds';
-      break;
     case 'clear':
       iconClass = 'bi bi-sun';
       break;
-    case 'isolated-clouds':
+    case 'partly-cloudy':
       iconClass = 'bi bi-cloud-sun';
       break;
-    case 'overcast':
+    case 'variable-cloudiness':
       iconClass = 'bi bi-clouds';
       break;
-    case 'sleet':
-      iconClass = 'bi bi-cloud-rain';
+    case 'cloudy-with-sunny-intervals':
+      iconClass = 'bi bi-cloud-sun';
       break;
-    case 'snowstorm':
-      iconClass = 'bi bi-snow';
+    case 'cloudy':
+      iconClass = 'bi bi-cloud';
       break;
-    case 'fog':
-      iconClass = 'bi bi-cloud-haze';
+    case 'thunder':
+      iconClass = 'bi bi-cloud-lightning-rain';
       break;
-    case 'partly-cloudy':
-      iconClass = 'bi bi-cloud-sun-fill';
+    case 'isolated-thunderstorms':
+      iconClass = 'bi bi-cloud-lightning-rain';
+      break;
+    case 'thunderstorms':
+      iconClass = 'bi bi-cloud-lightning-rain';
       break;
     case 'light-rain':
       iconClass = 'bi bi-cloud-drizzle';
       break;
-    case 'moderate-rain':
-      iconClass = 'bi bi-cloud-rain-heavy';
-      break;
-    case 'heavy-rain':
+    case 'rain':
       iconClass = 'bi bi-cloud-rain';
       break;
-    case 'storm':
-      iconClass = 'bi bi-cloud-lightning-rain';
+    case 'heavy-rain':
+      iconClass = 'bi bi-cloud-rain-heavy';
       break;
-    case 'violent-storm':
-      iconClass = 'bi bi-cloud-lightning-rain';
+    case 'rain-showers':
+      iconClass = 'bi bi-cloud-rain-heavy';
+      break;
+    case 'light-rain-at-times':
+      iconClass = 'bi bi-cloud-drizzle';
+      break;
+    case 'rain-at-times':
+      iconClass = 'bi bi-cloud-rain';
+      break;
+    case 'light-sleet':
+      iconClass = 'bi bi-cloud-drizzle';
+      break;
+    case 'sleet':
+      iconClass = 'bi bi-cloud-drizzle';
+      break;
+    case 'sleet-at-times':
+      iconClass = 'bi bi-cloud-drizzle';
+      break;
+    case 'sleet-showers':
+      iconClass = 'bi bi-cloud-drizzle';
+      break;
+    case 'freezing-rain':
+      iconClass = 'bi bi-cloud-drizzle';
       break;
     case 'hail':
       iconClass = 'bi bi-cloud-hail';
       break;
-    default:
-      iconClass = 'bi bi-question-diamond';
+    case 'light-snow':
+      iconClass = 'bi bi-cloud-snow';
       break;
+    case 'snow':
+      iconClass = 'bi bi-cloud-snow';
+      break;
+    case 'heavy-snow':
+      iconClass = 'bi bi-cloud-snow';
+      break;
+    case 'snow-showers':
+      iconClass = 'bi bi-cloud-snow';
+      break;
+    case 'snow-at-times':
+      iconClass = 'bi bi-cloud-snow';
+      break;
+    case 'light-snow-at-times':
+      iconClass = 'bi bi-cloud-snow';
+      break;
+    case 'snowstorm':
+      iconClass = 'bi bi-cloud-snow';
+      break;
+    case 'mist':
+      iconClass = 'bi bi-cloud-haze';
+      break;
+    case 'fog':
+      iconClass = 'bi bi-cloud-haze';
+      break;
+    case 'squall':
+      iconClass = 'bi bi-cloud-haze';
+      break;
+    default:
+      iconClass = 'bi bi-question-circle';
+      break
   }
 
   return `<i class="${iconClass}"></i>`;
