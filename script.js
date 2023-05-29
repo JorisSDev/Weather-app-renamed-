@@ -33,6 +33,9 @@ function getWeatherIcon(conditionCode) {
 
   // Priskirti ikoną pagal oro sąlygą
   switch (conditionCode) {
+    case 'cloudy':
+      iconClass = 'bi bi-clouds';
+      break;
     case 'clear':
       iconClass = 'bi bi-sun';
       break;
@@ -59,6 +62,18 @@ function getWeatherIcon(conditionCode) {
       break;
     case 'moderate-rain':
       iconClass = 'bi bi-cloud-rain-heavy';
+      break;
+    case 'heavy-rain':
+      iconClass = 'bi bi-cloud-rain';
+      break;
+    case 'storm':
+      iconClass = 'bi bi-cloud-lightning-rain';
+      break;
+    case 'violent-storm':
+      iconClass = 'bi bi-cloud-lightning-rain';
+      break;
+    case 'hail':
+      iconClass = 'bi bi-cloud-hail';
       break;
     default:
       iconClass = 'bi bi-question-diamond';
